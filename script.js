@@ -1,6 +1,19 @@
+function getQueryParam(name) {
+	var results = new RegExp('[\?&]' + name + '=([^&#]*)').exec(window.location.href);
+	return results[1] || 0;
+}
+
 $(document).ready(function(){
+
+	// Handle the comming back from the barcode reader
+	var barcode = getQueryParam('barcode');
+	if (barcode) {
+		$("#barcode").val(barcode);
+		checkProduct(barcode);
+	}
+
 	$('#check').click(function() {
-		checkProduct($( "#barcode" ).val());
+		checkProduct($("#barcode").val());
   	});
 
   	$('#restrictions-form').on("submit",function(e) {
