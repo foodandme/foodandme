@@ -2,12 +2,27 @@ $(document).ready(function(){
 	$('#check').click(function() {
 		checkProduct($( "#barcode" ).val());
   	});
+
+  	$('#restrictions-form').on("submit",function(e) {
+	    e.preventDefault(); 
+	    var checkboxs = $("#restrictions-form :checkbox");
+	    var unwantedNutriments = [];
+	    checkboxs.each(function() {
+	    	if(this.checked == true) {
+	    		console.log(this.value + " " + this.checked);
+	    		unwantedNutriments = unwantedNutriments.concat(JSON.parse(localStorage.getItem(this.value)));
+	    	}
+	    });
+	    unwantedNutriments = unwantedNutriments.concat($("#restrictions-form #custom-unwanted-nutriment")[0].value);
+	    console.log(unwantedNutriments);
+	    localStorage.setItem("unwanted-utriments-list", JSON.stringify(unwantedNutriments));
+	});
 });
 
 $.getJSON("data/allergens.json", function( data ) {
     var items = [];
     $.each( data, function( key, list ) {
-        localStorage.setItem("allergens-product-list", list);
+        localStorage.setItem(key, JSON.stringify(list));
         items.push('' +
             '<div class="checkbox"><label> ' +
                 '<input type="checkbox" value="'+key+'">' + key + '</br><span class="small text-muted">' + list + '</span></input>' +
@@ -18,7 +33,11 @@ $.getJSON("data/allergens.json", function( data ) {
 });
 
 function getUnwantedNutriments() {
-	return ["épices", "huile de palme"]; // TODO load from localstorage
+	var unwantedNutriments = localStorage.getItem("unwanted-utriments-list");
+	if(unwantedNutriments === null) {
+		return [];
+	}
+	return JSON.parse(unwantedNutriments);
 }
 
 function checkProduct(barcode) {
@@ -37,7 +56,6 @@ function checkProduct(barcode) {
 function checkComposition(composition) {
 	var unwantedNutriments = getUnwantedNutriments();
 	$('#check-ok').removeClass('hide');
-	console.log(unwantedNutriments);	
 	for (var i = 0, len = unwantedNutriments.length; i < len; i++) {
 		var unwanted = unwantedNutriments[i];
 		if(composition.includes(unwanted)) {
