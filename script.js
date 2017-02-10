@@ -18,19 +18,11 @@ $(document).ready(function(){
 
   	$('#restrictions-form').on("submit",function(e) {
 	    e.preventDefault(); 
-	    var checkboxs = $("#restrictions-form :checkbox");
-	    var unwantedNutriments = [];
-	    checkboxs.each(function() {
-	    	if(this.checked == true) {
-	    		console.log(this.value + " " + this.checked);
-	    		unwantedNutriments = unwantedNutriments.concat(JSON.parse(localStorage.getItem(this.value)));
-	    	}
-	    });
-	    unwantedNutriments = unwantedNutriments.concat($("#restrictions-form #custom-unwanted-nutriment")[0].value);
-	    console.log(unwantedNutriments);
-	    localStorage.setItem("unwanted-utriments-list", JSON.stringify(unwantedNutriments));
+	    saveRestrictionsToLocalStorage();
 	});
+
 });
+
 
 $.getJSON("data/allergens.json", function( data ) {
     var items = [];
@@ -44,6 +36,24 @@ $.getJSON("data/allergens.json", function( data ) {
     });
     $(items.join( "")).appendTo('#restrictions');
 });
+
+
+function saveRestrictionsToLocalStorage() {
+	var checkboxs = $("#restrictions-form :checkbox");
+	var unwantedNutriments = [];
+	checkboxs.each(function() {
+		if(this.checked == true) {
+			console.log(this.value + " " + this.checked);
+			unwantedNutriments = unwantedNutriments.concat(JSON.parse(localStorage.getItem(this.value)));
+		}
+	});
+	var custom = $("#restrictions-form #custom-unwanted-nutriment")[0].value;
+	if(custom) {
+		unwantedNutriments = unwantedNutriments.concat(custom);
+	}
+	console.log(unwantedNutriments);
+	localStorage.setItem("unwanted-utriments-list", JSON.stringify(unwantedNutriments));
+}
 
 function getUnwantedNutriments() {
 	var unwantedNutriments = localStorage.getItem("unwanted-utriments-list");
@@ -68,6 +78,7 @@ function checkProduct(barcode) {
 
 function checkComposition(composition) {
 	var unwantedNutriments = getUnwantedNutriments();
+	$('#check-nok').addClass('hide');
 	$('#check-ok').removeClass('hide');
 	for (var i = 0, len = unwantedNutriments.length; i < len; i++) {
 		var unwanted = unwantedNutriments[i];
