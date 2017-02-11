@@ -77,10 +77,9 @@ function setLastBarcode() {
 
 function displayRestrictions() {
 	var unwantedNutriments = getUnwantedNutriments();
-	if(!unwantedNutriments.length) {
-		unwantedNutriments = "no restrictions yet...";
-	}
-	$("#actual-restrictions").text(unwantedNutriments.join(', '));
+	$("#actual-restrictions").text(
+		unwantedNutriments.length==0 ? 'no restrictions yet...' : unwantedNutriments.join(', ')
+	);
 }
 
 function saveRestrictionsToLocalStorage() {
