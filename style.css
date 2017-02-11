@@ -32,9 +32,13 @@
 }
 
 #check {
-	margin-top: 10px;
+	margin: 10px 0 20px;
 }
 
 .barcode-link {
 	margin: 7px 0 7px 4px;
+}
+
+.alert {
+	margin-top:20px;
 }
