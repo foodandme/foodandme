@@ -53,8 +53,16 @@ function saveRestrictionsToLocalStorage() {
 	if(custom) {
 		unwantedNutriments = unwantedNutriments.concat(custom);
 	}
-	console.log(unwantedNutriments);
 	localStorage.setItem("unwanted-utriments-list", JSON.stringify(unwantedNutriments));
+	alertSuccess(unwantedNutriments);
+}
+
+function alertSuccess(unwantedNutriments) {
+	console.log(unwantedNutriments);
+	$('#alter-restriction-saved').removeClass('hide');
+		$("#alter-restriction-saved").fadeTo(2000, 500).slideUp(500, function(){
+    	$("#alter-restriction-saved").slideUp(500);
+	});
 }
 
 function getUnwantedNutriments() {
@@ -79,9 +87,9 @@ function checkProduct(barcode) {
 }
 
 function checkComposition(composition) {
-	var unwantedNutriments = getUnwantedNutriments();
 	$('#check-nok').addClass('hide');
 	$('#check-ok').removeClass('hide');
+	var unwantedNutriments = getUnwantedNutriments();
 	for (var i = 0, len = unwantedNutriments.length; i < len; i++) {
 		var unwanted = unwantedNutriments[i];
 		if(composition.includes(unwanted)) {
