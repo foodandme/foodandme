@@ -99,8 +99,19 @@ function checkProduct(barcode) {
 
 function checkComposition(composition) {
 	$('#check-nok').addClass('hide');
+	$('#check-nodata').addClass('hide');
 	$('#check-ok').removeClass('hide');
-	var unwantedNutriments = getUnwantedNutriments();
+	if(composition) {
+		parseComposition(composition);
+	} else {
+		$('#check-ok').addClass('hide');
+		$('#check-nodata').removeClass('hide');
+		$('#product-composition').html('-');
+	}
+}
+
+function parseComposition(composition) {
+		var unwantedNutriments = getUnwantedNutriments();
 	for (var i = 0, len = unwantedNutriments.length; i < len; i++) {
 		var unwanted = unwantedNutriments[i];
 		var regex = new RegExp('(^|[^a-z])('+unwanted+')($|[^a-z])', 'ig'); // TODO : Smarter regex
@@ -113,11 +124,15 @@ function checkComposition(composition) {
 	$('#product-composition').html(composition);
 }
 
-
 function setName(data, barcode) {
-	var name = data.data[0].attributes.name
-	if (name == null) {
-		name = 'No name for product ' + barcode + ' with id ' + data.data[0].id
+	var name = 'No product found for barcode : ' + barcode;
+	var product = data.data[0];
+	console.log(product);
+	if(product) {
+		name = product.attributes.name;
+		if (name == null) {
+			name = 'No name found for product : ' + barcode;
+		}
 	}
 	$('#product-name').text(name);
 }
