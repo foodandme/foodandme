@@ -145,7 +145,14 @@ function checkProduct(barcode) {
     }).then(function(data) {
     	setName(data, barcode);
     	checkComposition(data.data[0].attributes['ingredients-translations'].fr);
+    	setMoreInfoLink(data);
     });
+}
+
+function setMoreInfoLink(data) {
+	if(data.data[0]) {
+		$('#product-composition').append('<a target="_blank" href="https://www.openfood.ch/en/products/'+data.data[0].id+'"> See in openfood.ch →</a>');
+	}
 }
 
 function checkComposition(composition) {
@@ -157,7 +164,7 @@ function checkComposition(composition) {
 	} else {
 		$('#check-ok').addClass('hide');
 		$('#check-nodata').removeClass('hide');
-		$('#product-composition').html('-');
+		$('#product-composition').html('');
 	}
 }
 
@@ -180,7 +187,6 @@ function setName(data, barcode) {
 	var product = data.data[0];
 	$('#product-more-link').html('');
 	if(product) {
-		$('#product-more-link').html('<a target="_blank" href="https://www.openfood.ch/en/products/'+data.data[0].id+'">More info →</a>');
 		name = product.attributes.name;
 		if (name == null) {
 			name = 'No name found for product : ' + barcode;
