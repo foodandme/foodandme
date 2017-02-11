@@ -14,13 +14,9 @@ $(document).ready(function(){
 		checkProduct($("#barcode").val().replace(/\s/g, ''));
   	});
 
-  	$('input[type=checkbox]').on("change",function(e) {
-	    saveRestrictionsToLocalStorage();
-	});
 	$('#custom-unwanted-nutriment').on("keyup",function(e) {
 		saveRestrictionsToLocalStorage();
 	});
-
 
 	setLastBarcode();
 	displayRestrictions();
@@ -38,6 +34,9 @@ $.getJSON("data/allergens.json", function( data ) {
         );
     });
     $(items.join( "")).appendTo('#restrictions');
+	$('input[type=checkbox]').on("change",function(e) {
+		saveRestrictionsToLocalStorage();
+	});
 });
 
 function getMobileOperatingSystem() {
