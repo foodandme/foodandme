@@ -179,7 +179,7 @@ function setName(data, barcode) {
 }
 
 function initBarcodeReaderLink(){
-	var returnUrl = 'https://foodandme.github.io/foodandme/barcode?{CODE}';
+	var returnUrl = 'https://foodandme.github.io/foodandme/?barcode={CODE}';
 	var androidUrl = 'http://zxing.appspot.com/scan?ret=';
 	var iphoneUrl = 'zxing://scan/?ret=';
 
