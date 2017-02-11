@@ -11,7 +11,7 @@ $(document).ready(function(){
 	}
 
 	$('#check').click(function() {
-		checkProduct($("#barcode").val());
+		checkProduct($("#barcode").val().replace(/\s/g, ''));
   	});
 
   	$('input[type=checkbox]').on("change",function(e) {
@@ -33,7 +33,7 @@ $.getJSON("data/allergens.json", function( data ) {
         localStorage.setItem(key, JSON.stringify(list));
         items.push('' +
             '<div class="checkbox"><label> ' +
-                '<input type="checkbox" value="'+key+'">' + key + '</br><span class="small text-muted">' + list + '</span></input>' +
+                '<input type="checkbox" value="'+key+'">' + key + '</br><span class="small text-muted">' + list.join(', ') + '</span></input>' +
             '</label></div>'
         );
     });
@@ -147,7 +147,14 @@ function checkProduct(barcode) {
    		}
     }).then(function(data) {
     	setName(data, barcode);
-    	checkComposition(data.data[0].attributes['ingredients-translations'].fr);
+    	if(data.data[0]) {
+    		checkComposition(data.data[0].attributes['ingredients-translations'].fr);
+    	} else {
+    		$('#product-composition').html('');
+    		$('#check-nok').addClass('hide');
+			$('#check-nodata').addClass('hide');
+			$('#check-ok').addClass('hide');
+    	}
     	setMoreInfoLink(data);
     });
 }
