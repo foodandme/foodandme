@@ -51,6 +51,33 @@ function displayRestrictions() {
 }
 
 function saveRestrictionsToLocalStorage() {
+
+	var unwantedNutriments = getGroupsValues();
+	unwantedNutriments = getCustomValues(unwantedNutriments);
+	unwantedNutriments = removeDupicateValues(unwantedNutriments);
+	
+	localStorage.setItem("unwanted-utriments-list", JSON.stringify(unwantedNutriments));
+	
+	alertSuccess(unwantedNutriments);
+	displayRestrictions();
+}
+
+function removeDupicateValues(unwantedNutriments) {
+	unwantedNutriments = unwantedNutriments.filter(function(elem, pos) {
+  							return unwantedNutriments.indexOf(elem) == pos;
+								});
+	return unwantedNutriments;
+}
+
+function getCustomValues(unwantedNutriments) {
+	var custom = $("#restrictions-form #custom-unwanted-nutriment")[0].value;
+	if(custom) {
+		unwantedNutriments = unwantedNutriments.concat(custom.split(','));
+	}
+	return unwantedNutriments;
+}
+
+function getGroupsValues() {
 	var checkboxs = $("#restrictions-form :checkbox");
 	var unwantedNutriments = [];
 	checkboxs.each(function() {
@@ -58,13 +85,7 @@ function saveRestrictionsToLocalStorage() {
 			unwantedNutriments = unwantedNutriments.concat(JSON.parse(localStorage.getItem(this.value)));
 		}
 	});
-	var custom = $("#restrictions-form #custom-unwanted-nutriment")[0].value;
-	if(custom) {
-		unwantedNutriments = unwantedNutriments.concat(custom.split(','));
-	}
-	localStorage.setItem("unwanted-utriments-list", JSON.stringify(unwantedNutriments));
-	alertSuccess(unwantedNutriments);
-	displayRestrictions();
+	return unwantedNutriments;
 }
 
 function alertSuccess(unwantedNutriments) {
