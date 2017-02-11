@@ -33,7 +33,7 @@ $.getJSON("data/allergens.json", function( data ) {
             '</label></div>'
         );
     });
-    $(items.join( "")).appendTo('#restrictions');
+    $(items.join('')).prependTo('#restrictions');
 	$('input[type=checkbox]').on("change",function(e) {
 		saveRestrictionsToLocalStorage();
 	});
