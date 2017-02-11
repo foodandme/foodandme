@@ -19,6 +19,7 @@ $(document).ready(function(){
 	    saveRestrictionsToLocalStorage();
 	});
 
+  	setLastBarcode();
 	displayRestrictions();
 
 });
@@ -62,6 +63,13 @@ function getQueryParam(name) {
 		return null;
 	}
 	return results[1] || 0;
+}
+
+function setLastBarcode() {
+	var lastBarcode = localStorage.getItem('last-barcode');
+  	if(lastBarcode) {
+  		$("#barcode").val()
+  	}
 }
 
 function displayRestrictions() {
@@ -127,6 +135,7 @@ function getUnwantedNutriments() {
 }
 
 function checkProduct(barcode) {
+	localStorage.setItem('last-barcode', barcode);
 	$.ajax({
 		type: "GET",
         url: "https://www.openfood.ch/api/v2/products?barcodes="+barcode,
