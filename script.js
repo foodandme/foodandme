@@ -14,12 +14,15 @@ $(document).ready(function(){
 		checkProduct($("#barcode").val());
   	});
 
-  	$('#restrictions-form').on("submit",function(e) {
-	    e.preventDefault(); 
+  	$('input[type=checkbox]').on("change",function(e) {
 	    saveRestrictionsToLocalStorage();
 	});
+	$('#custom-unwanted-nutriment').on("keyup",function(e) {
+		saveRestrictionsToLocalStorage();
+	});
 
-  	setLastBarcode();
+
+	setLastBarcode();
 	displayRestrictions();
 
 });
@@ -75,9 +78,9 @@ function setLastBarcode() {
 function displayRestrictions() {
 	var unwantedNutriments = getUnwantedNutriments();
 	if(!unwantedNutriments.length) {
-		unwantedNutriments = "empty";
+		unwantedNutriments = "no restrictions yet...";
 	}
-	$("#actual-restrictions").text(unwantedNutriments);
+	$("#actual-restrictions").text(unwantedNutriments.join(', '));
 }
 
 function saveRestrictionsToLocalStorage() {
