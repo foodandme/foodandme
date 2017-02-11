@@ -5,3 +5,28 @@
 #alter-restriction-saved {
 	margin: 20px 0;
 }
+
+.header {
+	margin-bottom: 20px;
+	color: #ABBB86;
+	font-family: Impact, Charcoal, sans-serif;
+	height: 100px;
+}
+.header img {
+	width: 150px;
+	height: 100px;
+}
+
+.header h1 {
+	padding-top: 60px;
+	padding-left: 160px;
+	font-size: 34px;
+}
+
+@media (max-width: 700px) {
+	.header h1 {
+		padding-top: 0;
+		padding-left: 160px;
+		font-size: 26px;
+	}
+}
