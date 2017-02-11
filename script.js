@@ -204,9 +204,9 @@ function initBarcodeReaderLink(){
 	if (getMobileOperatingSystem() == 'iOS') {
 		url = iphoneUrl + encodeURI(returnUrl);
 	}
-	else if (getMobileOperatingSystem() == 'Android') {
-		url = androidUrl + encodeURI(returnUrl);
-	}
+	//if (getMobileOperatingSystem() == 'Android') {
+	//	url = androidUrl + encodeURI(returnUrl);
+	//}
 
 	if (url) {
 		$('<br><a href="' + url + '"><span class="glyphicon glyphicon-barcode" /> Barcode Scanner...</a>').insertAfter('#barcode');
