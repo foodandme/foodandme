@@ -178,7 +178,9 @@ function parseComposition(composition) {
 function setName(data, barcode) {
 	var name = 'No product found for barcode : ' + barcode;
 	var product = data.data[0];
+	$('#product-more-link').html('');
 	if(product) {
+		$('#product-more-link').html('<a href="https://www.openfood.ch/en/products/"'+data.data[0].id+'>More info →</a>');
 		name = product.attributes.name;
 		if (name == null) {
 			name = 'No name found for product : ' + barcode;
