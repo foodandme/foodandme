@@ -204,12 +204,12 @@ function initBarcodeReaderLink(){
 	var iphoneUrl = 'zxing://scan/?ret=';
 
 	var url = null;
-	if (getMobileOperatingSystem() == 'iOS') {
-		url = iphoneUrl + encodeURI(returnUrl);
-	}
-	//if (getMobileOperatingSystem() == 'Android') {
-	//	url = androidUrl + encodeURI(returnUrl);
+	//if (getMobileOperatingSystem() == 'iOS') {
+	//	url = iphoneUrl + encodeURI(returnUrl);
 	//}
+	if (getMobileOperatingSystem() == 'Android') {
+		url = androidUrl + encodeURI(returnUrl);
+	}
 
 	if (url) {
 		$('<br><a href="' + url + '"><span class="glyphicon glyphicon-barcode" /> Barcode Scanner...</a>').insertAfter('#barcode');
