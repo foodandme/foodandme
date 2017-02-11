@@ -55,13 +55,12 @@ function saveRestrictionsToLocalStorage() {
 	var unwantedNutriments = [];
 	checkboxs.each(function() {
 		if(this.checked == true) {
-			console.log(this.value + " " + this.checked);
 			unwantedNutriments = unwantedNutriments.concat(JSON.parse(localStorage.getItem(this.value)));
 		}
 	});
 	var custom = $("#restrictions-form #custom-unwanted-nutriment")[0].value;
 	if(custom) {
-		unwantedNutriments = unwantedNutriments.concat(custom);
+		unwantedNutriments = unwantedNutriments.concat(custom.split(','));
 	}
 	localStorage.setItem("unwanted-utriments-list", JSON.stringify(unwantedNutriments));
 	alertSuccess(unwantedNutriments);
@@ -127,7 +126,6 @@ function parseComposition(composition) {
 function setName(data, barcode) {
 	var name = 'No product found for barcode : ' + barcode;
 	var product = data.data[0];
-	console.log(product);
 	if(product) {
 		name = product.attributes.name;
 		if (name == null) {
