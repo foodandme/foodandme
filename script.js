@@ -17,6 +17,8 @@ $(document).ready(function(){
 	    saveRestrictionsToLocalStorage();
 	});
 
+	displayRestrictions();
+
 });
 
 $.getJSON("data/allergens.json", function( data ) {
@@ -40,6 +42,14 @@ function getQueryParam(name) {
 	return results[1] || 0;
 }
 
+function displayRestrictions() {
+	var unwantedNutriments = getUnwantedNutriments();
+	if(!unwantedNutriments.length) {
+		unwantedNutriments = "empty";
+	}
+	$("#actual-restrictions").text(unwantedNutriments);
+}
+
 function saveRestrictionsToLocalStorage() {
 	var checkboxs = $("#restrictions-form :checkbox");
 	var unwantedNutriments = [];
@@ -55,6 +65,7 @@ function saveRestrictionsToLocalStorage() {
 	}
 	localStorage.setItem("unwanted-utriments-list", JSON.stringify(unwantedNutriments));
 	alertSuccess(unwantedNutriments);
+	displayRestrictions();
 }
 
 function alertSuccess(unwantedNutriments) {
@@ -92,8 +103,9 @@ function checkComposition(composition) {
 	var unwantedNutriments = getUnwantedNutriments();
 	for (var i = 0, len = unwantedNutriments.length; i < len; i++) {
 		var unwanted = unwantedNutriments[i];
-		if(composition.includes(unwanted)) {
-			composition = composition.replace(unwanted, '<span class="bg-danger">'+unwanted+'</span>');
+		var regex = new RegExp('(^|[^a-z])('+unwanted+')($|[^a-z])', 'ig'); // TODO : Smarter regex
+		if(regex.test(composition)) {
+			composition = composition.replace(regex, ' <span class="bg-danger">$2</span> ');
 			$('#check-nok').removeClass('hide');
 			$('#check-ok').addClass('hide');
 		}	
