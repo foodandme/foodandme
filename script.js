@@ -1,7 +1,3 @@
-function getQueryParam(name) {
-	var results = new RegExp('[\?&]' + name + '=([^&#]*)').exec(window.location.href);
-	return results[1] || 0;
-}
 
 $(document).ready(function(){
 
@@ -23,7 +19,6 @@ $(document).ready(function(){
 
 });
 
-
 $.getJSON("data/allergens.json", function( data ) {
     var items = [];
     $.each( data, function( key, list ) {
@@ -37,6 +32,13 @@ $.getJSON("data/allergens.json", function( data ) {
     $(items.join( "")).appendTo('#restrictions');
 });
 
+function getQueryParam(name) {
+	var results = new RegExp('[\?&]' + name + '=([^&#]*)').exec(window.location.href);
+	if(results == null) {
+		return null;
+	}
+	return results[1] || 0;
+}
 
 function saveRestrictionsToLocalStorage() {
 	var checkboxs = $("#restrictions-form :checkbox");
