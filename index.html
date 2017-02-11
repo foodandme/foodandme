@@ -34,78 +34,92 @@
 <div class="container-fluid">
     <img src="logo.jpg" width="120">
 
-    <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+    <div class="row">
+        <div class="col-md-8">
+            <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
 
-        <div class="panel panel-default">
-            <div class="panel-heading" role="tab" id="headingOne">
-                <h4 class="panel-title">
-                    <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
-                        My restrictions
-                    </a>
-                </h4>
-            </div>
-            <div id="collapseOne" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
-                <div class="panel-body">
-                	<div class="alert alert-info">
-					  <strong>Actual restrictions:</strong> </br> <span id="actual-restrictions"> empty <span>
-					</div>
-                    <form id="restrictions-form" action="">
-                        <div id="restrictions" class="form-group">
-                            <label>Change your restrictions:</label>
-                            <div class="checkbox"><label>
-                            	<input type="text" id="custom-unwanted-nutriment" placeholder="Custom CSV format" />
-                        	</label></div>
+                <div class="panel panel-default">
+                    <div class="panel-heading" role="tab" id="headingOne">
+                        <h4 class="panel-title">
+                            <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+                                My restrictions
+                            </a>
+                        </h4>
+                    </div>
+                    <div id="collapseOne" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
+                        <div class="panel-body">
+                            <div class="alert alert-info">
+                              <strong>Actual restrictions:</strong> </br> <span id="actual-restrictions"> empty <span>
+                            </div>
+                            <form id="restrictions-form" action="">
+                                <div id="restrictions" class="form-group">
+                                    <label>Change your restrictions:</label>
+                                    <div class="checkbox"><label>
+                                        <input type="text" id="custom-unwanted-nutriment" placeholder="Custom CSV format" />
+                                    </label></div>
+                                </div>
+                                <button type="submit" class="btn btn-default">Save</button>
+                            </form>
+                            <div style="margin:20px 0;" id="alter-restriction-saved" class="alert alert-success hide" role="alert">
+                              <strong>Well done!</strong> You successfully update your restrictions.
+                            </div>
                         </div>
-                        <button type="submit" class="btn btn-default">Save</button>
-                    </form>
-                    <div style="margin:20px 0;" id="alter-restriction-saved" class="alert alert-success hide" role="alert">
-					  <strong>Well done!</strong> You successfully update your restrictions.
-					</div>
+                    </div>
+                </div>
+
+                <div class="panel panel-default" >
+                    <div class="panel-heading" role="tab" id="headingTwo">
+                        <h4 class="panel-title">
+                            <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
+                                Product identification
+                            </a>
+                        </h4>
+                    </div>
+                    <div id="collapseTwo" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingTwo">
+                        <div class="panel-body">
+                            <form id="product" action="">
+                              <input id="barcode" type="text" placeholder="Insert codebar" value="7613269300748">
+                              <br><button id="check" type="button" class="btn btn-default">Check</button>
+                            </form>
+                            <h3 id="product-name"></h3>
+                            <p id="product-composition"></p>
+
+                            <p class="alert alert-success hide" id="check-ok">Yep, looks all right.</p>
+                            <p class="alert alert-danger hide" id="check-nok">Something's wrong, double check the composition !</p>
+                            <p class="alert alert-warning hide" id="check-nodata">No data to process... You'll have to do it yourself, sorry.</p>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
+        <div class="col-md-4">
 
-        <div class="panel panel-default" >
-            <div class="panel-heading" role="tab" id="headingTwo">
-                <h4 class="panel-title">
-                    <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
-                        Product identification
-                    </a>
-                </h4>
-            </div>
-            <div id="collapseTwo" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingTwo">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">ABOUT</h3>
+                </div>
                 <div class="panel-body">
-                    <form id="product" action="">
-					  <input id="barcode" type="text" placeholder="Insert codebar" value="7613269300748">
-                      <br><button id="check" type="button" class="btn btn-default">Check</button>
-					</form>
-					<h3 id="product-name"></h3>
-					<p id="product-composition"></p>
+                    The project “Food and Me” aims to help users choosing the right food according to their needs.
+                    “Food and me” is based on
+                    <a href="https://www.openfood.ch/?locale=en">open food dataset</a>,
+                    an open access database on information about barcoded food products sold in Switzerland.
+                    Users of “Food and Me” application would be able to: <br>
+                    <ul>
+                        <li>Select the list of ingredients they want to avoid. This list of ingredient is taken
+                            from  <a href="https://ch-fr.openfoodfacts.org/">openfoodfacts</a></li>
+                        <li>Identify the product using its barcode. The barcode may be scanned, written manually, or searched.</li>
+                    </ul>
+                    Depending on the ingredients of the product identified “food and Me” notifies the users if they can consume or not this product. The users may ask for alternative products.
 
-  					<p class="alert alert-success hide" id="check-ok">Yep, looks all right.</p>
-  					<p class="alert alert-danger hide" id="check-nok">Something's wrong, double check the composition !</p>
-  					<p class="alert alert-warning hide" id="check-nodata">No data to process... You'll have to do it yourself, sorry.</p>
+                    <br><br>
+                    This is an open source project, source code is available on Github: <a href="https://github.com/foodandme/foodandme">github.com/foodandme/foodandme</a>
                 </div>
             </div>
+
         </div>
+
+        <small>Version 0.0.10</small>
     </div>
-	<div>
-	     <small><b>ABOUT</b><br>
-		    The project “Food and Me” aims to help users choosing the right food according to their needs. 
-		     “Food and me” is based on 
-		     <a href="https://www.openfood.ch/?locale=en">open food dataset</a>,
-		     an open access database on information about barcoded food products sold in Switzerland. 
-		     Users of “Food and Me” application would be able to: <br>
-		    <ul>
-			    <li>Select the list of ingredients they want to avoid. This list of ingredient is taken 
-				    from  <a href="https://ch-fr.openfoodfacts.org/">openfoodfacts</a></li>
-			    <li>Identify the product using its barcode. The barcode may be scanned, written manually, or searched.</li>
-		    </ul>
-		    Depending on the ingredients of the product identified “food and Me” notifies the users if they can consume or not this product. The users may ask for alternative products.  
-	    </small><br><br><br>
-	</div>
-    <small>Version 0.0.10</small>
-</div>
 
 </body>
 
