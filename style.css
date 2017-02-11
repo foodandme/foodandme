@@ -30,3 +30,11 @@
 		font-size: 26px;
 	}
 }
+
+#check {
+	margin-top: 10px;
+}
+
+.barcode-link {
+	margin: 7px 0 7px 4px;
+}

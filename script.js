@@ -212,7 +212,7 @@ function initBarcodeReaderLink(){
 	}
 
 	if (url) {
-		$('<br><a href="' + url + '"><span class="glyphicon glyphicon-barcode" /> Barcode Scanner...</a>').insertAfter('#barcode');
+		$('<a href="' + url + '" class="barcode-link pull-right"><span class="glyphicon glyphicon-barcode" /> Scanner...</a>').insertBefore('.barcode-input');
 	}
 
 }
