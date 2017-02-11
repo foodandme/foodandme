@@ -1,6 +1,8 @@
 
 $(document).ready(function(){
 
+	initBarcodeReaderLink();
+
 	// Handle the comming back from the barcode reader
 	var barcode = getQueryParam('barcode');
 	if (barcode) {
@@ -174,4 +176,23 @@ function setName(data, barcode) {
 		}
 	}
 	$('#product-name').text(name);
+}
+
+function initBarcodeReaderLink(){
+	var returnUrl = 'https://foodandme.github.io/foodandme/barcode?{CODE}';
+	var androidUrl = 'http://zxing.appspot.com/scan?ret=';
+	var iphoneUrl = 'zxing://scan/?ret=';
+
+	var url = null;
+	if (getMobileOperatingSystem() == 'iOS') {
+		url = iphoneUrl + encodeURI(returnUrl);
+	}
+	else if (getMobileOperatingSystem() == 'Android') {
+		url = androidUrl + encodeURI(returnUrl);
+	}
+
+	if (url) {
+		$('<a href="' + url + '" class="btn btn-secondary">Barcode Scanner...</a>').insertAfter('#barcode');
+	}
+
 }
