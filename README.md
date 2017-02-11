@@ -15,3 +15,4 @@ The project “Food and Me” aims to help users choosing the right food accordi
 Depending on the ingredients of the product identified “food and Me” notifies the users if they can consume or not this product. The users may ask for alternative products.
 
 This is an open source project, source code is available on Github: github.com/foodandme/foodandme
+This software is a proof of concept provided 'as is' without garanty of any kind. Use it with care!
